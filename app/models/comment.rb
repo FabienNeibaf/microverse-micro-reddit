@@ -6,5 +6,5 @@ class Comment < ApplicationRecord
 
   validates :post, :user, presence: true
 
-  validate_associated :user, :post
+  validates_associated :user, :post
 end
