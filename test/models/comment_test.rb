@@ -1,12 +1,10 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
   def setup
-    @u1 = User.new login: 'foobar', password: 'foo_bar', name: "Foo Bar"
-    @p1 = Post.new link: 'http://google.com/xxywzz'
+    @u1 = User.new name: "Foo Bar", email: 'foobar@example.com', password: 'foo_bar'
+    @p1 = Post.new title: 'Learning Ruby on Rails', body: "It's a piece of cake!"
   end
 
   test "content should be present" do
@@ -64,11 +62,11 @@ class CommentTest < ActiveSupport::TestCase
 
   test "should not save a comment without valid user" do
     @p1.user = @u1
-    u2 = User.new login: 'fuzz', password: 'buzzff', name: 'Fuzz Buzz'
+    u2 = User.new name: 'Fuzz Buzz', email: 'fuzz@example,com', password: 'buzzff'
 
-    c = Comment.new content: "Great link !"
+    c = Comment.new content: "Great Artilce!"
     c.post = @p1
-    c.user = u2  # User not valid because of login length
+    c.user = u2  # User not valid because of invalid email
 
     assert_not c.valid?
   end
